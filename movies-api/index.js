@@ -8,6 +8,8 @@ import './db';
 
 import {loadUsers} from './seedData'
 
+import usersRouter from './api/users';
+
 dotenv.config();
 
 const errHandler = (err, req, res, next) => {
@@ -31,6 +33,8 @@ app.use(express.static('public'));
 //configure body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+
+app.use('/api/users', usersRouter);
 
 app.use('/api/movies', moviesRouter);
 
