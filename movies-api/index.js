@@ -12,6 +12,9 @@ import {loadUsers} from './seedData'
 
 import usersRouter from './api/users';
 
+import session from 'express-session';
+import authenticate from './authenticate';
+
 dotenv.config();
 
 const errHandler = (err, req, res, next) => {
@@ -36,9 +39,15 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
+app.use(session({
+  secret: 'ilikecake',
+  resave: true,
+  saveUninitialized: true
+}));
+
 app.use('/api/users', usersRouter);
 
-app.use('/api/movies', moviesRouter);
+app.use('/api/movies', authenticate, moviesRouter);
 
 app.use('/api/genres', genresRouter);
 
