@@ -13,7 +13,8 @@ import {loadUsers} from './seedData'
 import usersRouter from './api/users';
 
 import session from 'express-session';
-import authenticate from './authenticate';
+// import authenticate from './authenticate';
+import passport from './authenticate';
 
 dotenv.config();
 
@@ -39,6 +40,8 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
+app.use(passport.initialize());
+
 app.use(session({
   secret: 'ilikecake',
   resave: true,
@@ -47,7 +50,7 @@ app.use(session({
 
 app.use('/api/users', usersRouter);
 
-app.use('/api/movies', authenticate, moviesRouter);
+app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
 
 app.use('/api/genres', genresRouter);
 
