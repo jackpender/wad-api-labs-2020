@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import moviesRouter from './api/movies';
+import upcomingRouter from "./api/upcoming";
 
 import bodyParser from 'body-parser';
 
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
 app.use('/api/movies', moviesRouter);
+app.use("/api/upcoming", upcomingRouter);
 
 app.listen(port, () => {
   console.info(`Server running at ${port}`);

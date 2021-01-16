@@ -1,32 +1,27 @@
 import express from 'express';
+//import { upcoming } from '../../seedData/upcoming';
 import {
-  getMovieReviews, getCredits
+  getMovieReviews
 } from '../tmdb-api';
 
-import movieModel from './movieModel';
+import upcomingModel from './upcomingModel';
+// import movieModel from './movies/movieModel';
 
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  movieModel.find().then(movies => res.status(200).send(movies)).catch(next);
+  upcomingModel.find().then(upcoming => res.status(200).send(upcoming)).catch(next);
 });
 
 router.get('/:id', (req, res, next) => {
   const id = parseInt(req.params.id);
-  movieModel.findByMovieDBId(id).then(movie => res.status(200).send(movie)).catch(next);
+  upcomingModel.findByMovieDBId(id).then(upcoming => res.status(200).send(upcoming)).catch(next);
 });
 
 router.get('/:id/reviews', (req, res, next) => {
   const id = parseInt(req.params.id);
   getMovieReviews(id)
   .then(reviews => res.status(200).send(reviews))
-  .catch((error) => next(error));
-});
-
-router.get('/:id/credits', (req, res, next) => {
-  const id = parseInt(req.params.id);
-  getCredits(id)
-  .then(credits => res.status(200).send(credits))
   .catch((error) => next(error));
 });
 
