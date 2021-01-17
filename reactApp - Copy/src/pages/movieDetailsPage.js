@@ -9,7 +9,7 @@ import SimilarMovies from "../components/similarMovies";
 
 const MoviePage = props => {
     const { id } = props.match.params;
-    const [movie] = useMovie(id)  // NEW
+    const [movie] = useMovie(id)  
   return (
     <>
     {movie ? (
@@ -36,7 +36,7 @@ const MoviePage = props => {
             )}
           </div>
         </div>
-        <div className="row">
+        {/* <div className="row">
           <div className="col-12 ">
             {!props.history.location.pathname.endsWith("/credits") ? (
                 <Link
@@ -73,19 +73,19 @@ const MoviePage = props => {
                 </Link>
               )}
           </div>
-        </div>
+        </div> */}
         <Route
           path={`/movies/:id/reviews`}
           render={props => <MovieReviews movie={movie} {...props} />}
         />
-        <Route
+        {/* <Route
         path={`/movies/:id/credits`}
         render={props => <MovieCredits movie={movie} />}
         />
         <Route
         path={`/movies/:id/similar`}
         render={props => <SimilarMovies movie={movie} />}
-        />
+        /> */}
       </>
     ) : (
       <p>Waiting for movie details</p>
