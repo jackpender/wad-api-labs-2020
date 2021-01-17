@@ -35,7 +35,7 @@ const App = () => {
         <SiteHeader></SiteHeader>
         <div class="container-fluid">
       <AuthProvider>
-        {/* <AuthHeader /> */}
+        <AuthHeader />
         {/* <ul>
           <li>
             <Link to="/movies">Home</Link>
@@ -54,8 +54,6 @@ const App = () => {
           </li>
         </ul> */}
         <MovieProvider>
-        <AuthProvider>
-            <AuthHeader />
         <Switch>
           {/* <Route path="/public" component={PublicPage} /> */}
           <Route path="/login" component={LoginPage} />
@@ -70,13 +68,7 @@ const App = () => {
           <Route path="/movies/:id" component={MoviePage} />
           <Redirect from="*" to="/movies" />
         </Switch>
-        </AuthProvider>
         </MovieProvider>
-        {/* <UpcomingProvider>
-          <Switch>
-          <PrivateRoute path="/upcoming" component={Upcoming} /> 
-          </Switch>
-        </UpcomingProvider> */}
       </AuthProvider>
       </div>
       </div>

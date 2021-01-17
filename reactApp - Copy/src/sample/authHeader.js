@@ -13,7 +13,7 @@ const BaseAuthHeader = (props) => {
   ) : (
     <nav>
       You are not logged in{" "}
-      <button onClick={() => history.push("/login")}>Login</button>
+      <button className="btn w-10 btn-primary" onClick={() => history.push("/login")}>Login</button>
     </nav>
   );
 };

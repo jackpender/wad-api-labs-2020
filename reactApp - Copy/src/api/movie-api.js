@@ -28,9 +28,28 @@ export const favorites = (username, id) => {
     }).then(res => res.json())
 };
 
+export const watchlist = (username, id) => {
+  return fetch(`/api/users/${username}/watchlist`, {
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify({id: id})
+  }).then(res => res.json())
+};
+
 export const getUserFavourites = (username) => {
     return fetch(
-       `/api/${username}/favourites`,{headers: {
+       `/api/users/${username}/favourites`,{headers: {
+         'Authorization': window.localStorage.getItem('token')
+      }
+    }
+    ).then(res => res.json());
+};
+
+export const getUserWatchlist = (username) => {
+    return fetch(
+       `/api/users/${username}/watchlist`,{headers: {
          'Authorization': window.localStorage.getItem('token')
       }
     }

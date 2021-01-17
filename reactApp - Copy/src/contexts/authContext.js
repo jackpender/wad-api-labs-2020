@@ -40,7 +40,7 @@
 // export default AuthContextProvider;
 
 import React, { useState, createContext } from "react";
-import { login, signup } from "../api/movie-api";
+import { login, signup, getUserFavourites, getUserWatchlist} from "../api/movie-api";
 
 export const AuthContext = createContext(null);
 
@@ -74,7 +74,19 @@ const AuthContextProvider = (props) => {
   const signout = () => {
     setTimeout(() => setIsAuthenticated(false), 100);
   }
-  
+
+  const userFavourites = async (username) => {
+    const movies = await getUserFavourites(username);
+    //console.log(favorite);
+    return (movies);
+  }
+
+  const userWatchList = async (username) => {
+    const movies = await getUserWatchlist(username);
+    //console.log(favorite);
+    return (movies);
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -82,7 +94,9 @@ const AuthContextProvider = (props) => {
         authenticate,
         register,
         signout,
-        userName
+        userFavourites,
+        userWatchList,
+        userName,
       }}
     >
       {props.children}

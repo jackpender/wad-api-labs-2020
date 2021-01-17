@@ -62,7 +62,7 @@ const LoginPage = props => {
         setPassword(e.target.value);
       }}></input><br />
       {/* Login web form  */}
-      <button onClick={login}>Log in</button>
+      <button className="btn w-10 btn-primary" onClick={login}>Log in</button>
       <p>Not Registered?
       <Link to="/signup">Sign Up!</Link></p>
     </>

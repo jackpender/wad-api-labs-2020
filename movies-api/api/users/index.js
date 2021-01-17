@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken';
 
 import movieModel from '../movies/movieModel';
 
+import upcomingModel from "../upcoming/upcomingModel";
+
 const router = express.Router(); // eslint-disable-line
 
 // Get all users
@@ -76,7 +78,6 @@ router.put('/:id',  (req, res, next) => {
 //     }
 // });
 
-//Add a favourite. No Error Handling Yet. Can add duplicates too!
 router.post('/:userName/favourites', async (req, res, next) => {
   const newFavourite = req.body.id;
   const userName = req.params.userName;
@@ -106,6 +107,31 @@ router.get('/:userName/favourites', (req, res, next) => {
   const userName = req.params.userName;
   User.findByUserName(userName).populate('favourites').then(
     user => res.status(201).json(user.favourites)
+  ).catch(next);
+});
+
+router.post('/:userName/watchlist', async (req, res, next) => {
+  const newWatchlist = req.body.id;
+  const userName = req.params.userName;
+  const movie = await upcomingModel.findByMovieDBId(newWatchlist);
+  const user = await User.findByUserName(userName);
+  if (user.watchlist.indexOf(movie._id) == -1) {
+    await user.watchlist.push(movie._id);
+    await user.save(); 
+    res.status(201).json(user).catch(next);
+    
+  } else {
+    res.status(401).json({
+      code: 401,
+      message: 'This movie has already been added to user watchlist'
+    });
+  }
+});
+
+router.get('/:userName/watchlist', (req, res, next) => {
+  const userName = req.params.userName;
+  User.findByUserName(userName).populate('watchlist').then(
+    user => res.status(201).json(user.watchlist)
   ).catch(next);
 });
 
